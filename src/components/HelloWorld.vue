@@ -1,14 +1,57 @@
 <script setup>
+import { ref, reactive } from 'vue';
+
 defineProps({
   msg: {
     type: String,
     required: true,
   },
 })
+
+//khởi tạo biến trong vue
+//ref(value): dùng với kiểu dữ liệu nguyên thủy (string, number, boolean);
+const name = ref('Vương Minh Thái');
+const count = ref(0);
+const status = ref(true);
+
+const countClick = () => { //arrow function
+  count.value++;
+}
+
+//reactive(): dùng với array, object
+//object: { key: value };
+const sv = reactive({
+  name: 'thaivm2',
+  age: 100,
+  isActive: false,
+});
+
+//array: []
+const users = reactive([
+  {
+    name: 'thaivm2',
+    avatar: 'https://picsum.photos/200',
+    gender: 'Male',
+  },
+  {
+    name: 'thaivm3',
+    avatar: 'https://picsum.photos/200',
+    gender: 'Female',
+  }
+])
+
 </script>
 
 <template>
   <div class="greetings">
+    <!-- <h1>{{ name }}</h1>
+    <h1>{{ status }}</h1>
+    <h1>{{ count }}</h1>
+    <button @click="countClick">Click</button> -->
+
+    <h1>{{ sv.name }}</h1>
+    <h1>{{ sv.age }}</h1>
+    <h1>{{ sv.isActive }}</h1>
     <h1 class="green">{{ msg }}</h1>
     <h3>
       You’ve successfully created a project with
@@ -29,9 +72,9 @@ defineProps({
       <tbody>
         <tr>
           <td>1</td>
-          <td>thaivm2</td>
+          <td>{{ users[0].name }}</td>
           <td></td>
-          <td>Male</td>
+          <td>{{ users[0].gender }}</td>
           <td>
             <button class="btn btn-warning">Edit</button>
             <button class="btn btn-danger">Delete</button>
@@ -39,9 +82,9 @@ defineProps({
         </tr>
         <tr>
           <td>2</td>
-          <td>thaivm3</td>
+          <td>{{ users[1].name }}</td>
           <td></td>
-          <td>Female</td>
+          <td>{{ users[1].gender }}</td>
           <td>
             <button class="btn btn-warning">Edit</button>
             <button class="btn btn-danger">Delete</button>
