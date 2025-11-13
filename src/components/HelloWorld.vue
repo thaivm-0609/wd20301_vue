@@ -44,6 +44,15 @@ const users = reactive([
   }
 ])
 
+const isLoggedIn = ref(false);
+const checkInOut = () => {
+  isLoggedIn.value = !isLoggedIn.value;
+}
+
+const changeStatus = (index) => {
+  //cập nhật giá trị của status bằng phủ định (!) của giá trị status hiện tại
+  users[index].status = !users[index].status; 
+}
 </script>
 
 <template>
@@ -53,10 +62,22 @@ const users = reactive([
     <h1>{{ count }}</h1>
     <button @click="countClick">Click</button> -->
 
-    <h1>{{ sv.name }}</h1>
+    <!-- condition rendering: 
+      <element v-show="điều kiện"></element>
+      <element v-if="điều kiện"></element>
+      <element v-else-if="điều kiện 2"></element>
+      <element v-else></element>
+    -->
+    <h1 v-if="isLoggedIn">Đăng nhập thành công</h1>
+    <!-- button -->
+    <button v-if="isLoggedIn" @click="checkInOut">Đăng xuất</button>
+    <button v-else @click="checkInOut">Đăng nhập</button>
+    <!-- <h1>{{ sv.name }}</h1>
     <h1>{{ sv.age }}</h1>
-    <h1>{{ sv.isActive }}</h1>
-    <h1 class="green">{{ msg }}</h1>
+    <h1>{{ sv.isActive }}</h1> -->
+    <!-- <h1 class="green">{{ msg }}</h1>
+    <h1>{{ name }}</h1>
+    <input type="text" v-model="name"> -->
     <h3>
       You’ve successfully created a project with
       <a href="https://vite.dev/" target="_blank" rel="noopener">Vite</a> +
@@ -99,7 +120,7 @@ const users = reactive([
           </td>
           <td :class="{ isActive: users[0].status == true }">{{ users[0].status }}</td>
           <td style="background-color: red;">
-            <button @click="">Change status</button>
+            <button @click="changeStatus(0)" class="btn btn-info">Change status</button>
             <button class="btn btn-warning">Edit</button>
             <button class="btn btn-danger">Delete</button>
           </td>
@@ -112,6 +133,12 @@ const users = reactive([
           <td>{{ users[1].age }}</td>
           <td :class="{ isActive: users[1].status == true }">{{ users[1].status }}</td>
           <td>
+            <button 
+              @click="changeStatus(1)"
+              class="btn btn-info"
+            >
+              Change status
+            </button>
             <button class="btn btn-warning">Edit</button>
             <button class="btn btn-danger">Delete</button>
           </td>
@@ -128,6 +155,7 @@ h1 {
   position: relative;
   top: -10px;
 }
+
 
 .isMale {
   background-color: green;
