@@ -20,29 +20,37 @@ const countClick = () => { //arrow function
 
 //reactive(): dùng với array, object
 //object: { key: value };
-const sv = reactive({
+const sinhVien = reactive({
+  // key: value
   name: 'thaivm2',
   age: 100,
   isActive: false,
 });
 
 //array: []
-const users = reactive([
-  {
-    name: 'thaivm2',
-    avatar: 'https://picsum.photos/200',
-    gender: 'Male',
-    age: 67,
-    status: true,
-  },
-  {
-    name: 'thaivm3',
-    avatar: 'https://picsum.photos/200',
-    gender: 'Female',
-    age: 14,
-    status: false,
+const state = reactive({
+  users: [
+    {
+      name: 'thaivm2',
+      avatar: 'https://picsum.photos/200',
+      gender: 'Male',
+      age: 67,
+      status: true,
+    },
+    {
+      name: 'thaivm3',
+      avatar: 'https://picsum.photos/200',
+      gender: 'Female',
+      age: 14,
+      status: false,
+    }
+  ]
+})
+const deleteUser = (i) => {
+  if (confirm('Are you sure?')) {
+    state.users = state.users.filter((item, index) => index != i);
   }
-])
+} 
 
 const isLoggedIn = ref(false);
 const checkInOut = () => {
@@ -53,25 +61,49 @@ const changeStatus = (index) => {
   //cập nhật giá trị của status bằng phủ định (!) của giá trị status hiện tại
   users[index].status = !users[index].status; 
 }
+
+const point = ref(0);
 </script>
 
 <template>
   <div class="greetings">
+    <!-- <input type="number" v-model="point">
+    <h1>Xếp hạng tốt nghiệp:</h1>
+    <p v-if="point >= 9">Xuất sắc</p>
+    <p v-else-if="point >= 8">Giỏi</p>
+    <p v-else-if="point >= 6">Khá</p>
+    <p v-else-if="point >= 5">Trung Bình</p>
+    <p v-else>Không được tốt nghiệp</p> -->
+    
+    <!-- nếu point < 5 điểm => không được tốt nghiệp
+      5 -> 6: xếp loại Trung bình
+      6 -> 8: xếp loại Khá
+      8 -> 9: xếp loại Giỏi
+      9 -> 10: xếp loại Xuất Sắc
+    -->
+
+    
     <!-- <h1>{{ name }}</h1>
     <h1>{{ status }}</h1>
     <h1>{{ count }}</h1>
     <button @click="countClick">Click</button> -->
 
     <!-- condition rendering: 
-      <element v-show="điều kiện"></element>
-      <element v-if="điều kiện"></element>
+      <element v-show="điều kiện"></element>: Render element trước => nếu điều kiện sai thì display: none cho element
+      <element v-if="điều kiện"></element>: Kiểm tra điều kiện => nếu điều kiện đúng thì mới render element
       <element v-else-if="điều kiện 2"></element>
       <element v-else></element>
     -->
+    
     <h1 v-if="isLoggedIn">Đăng nhập thành công</h1>
-    <!-- button -->
     <button v-if="isLoggedIn" @click="checkInOut">Đăng xuất</button>
     <button v-else @click="checkInOut">Đăng nhập</button>
+   
+    <!-- sử dụng v-for để duyệt qua từng thuộc tính ở trong object
+      dưới dạng key: value 
+    -->
+    <h1 v-for="(value,key) in sinhVien"> {{ key }}: {{ value }}</h1>
+
     <!-- <h1>{{ sv.name }}</h1>
     <h1>{{ sv.age }}</h1>
     <h1>{{ sv.isActive }}</h1> -->
@@ -103,18 +135,42 @@ const changeStatus = (index) => {
 
           - class binding: :class="tenClass"
         -->
+
+
+        <!-- vòng lặp v-for dùng với mảng (array)
+        <element v-for="(soIt, index) in soNhieu" ></element>
+        <element v-for="soIt in soNhieu" ></element>
+        -->
+
+        <tr v-for="(user,index) in state.users">
+          <td>{{ index+1 }}</td>
+          <td>{{ user.name }}</td>
+          <td><img :src="user.avatar" alt=""></td>
+          <td :class="{ isMale: user.gender == 'Male'}">{{ user.gender }}</td>
+          <td :style="{ fontSize: user.age>65 ? '50px' : '20px' }">
+            {{ user.age }}
+          </td>
+          <td :class="{ isActive: user.status == true }">{{ user.status }}</td>
+          <td style="background-color: red;">
+            <button @click="changeStatus(index)" class="btn btn-info">Change status</button>
+            <button class="btn btn-warning">Edit</button>
+            <button @click="deleteUser(index)" class="btn btn-danger">Delete</button>
+          </td>
+        </tr>
+
+        <!--
         <tr>
           <td>1</td>
           <td>{{ users[0].name }}</td>
           <td><img v-bind:src="users[0].avatar" alt=""></td>
-          <!-- cú pháp cho class binding có điều kiện
+          cú pháp cho class binding có điều kiện
             :class="{ tenClass: điều kiện }" 
-          -->
+          
           <td :class="{ isMale: users[0].gender == 'Male'}">{{ users[0].gender }}</td>
-          <!-- style binding: :style="{
+          style binding: :style="{
             tenThuocTinh: 'value' (ko có điều kiện)
             tenThuocTinh1: điều kiện ? 'giá trị nếu đk đúng' : 'giá trị nếu điều kiện sai'
-          }" -->
+          }"  
           <td :style="{ fontSize: users[0].age>65 ? '50px' : '20px' }">
             {{ users[0].age }}
           </td>
@@ -143,6 +199,7 @@ const changeStatus = (index) => {
             <button class="btn btn-danger">Delete</button>
           </td>
         </tr>
+      -->
       </tbody>
     </table>
   </div>
