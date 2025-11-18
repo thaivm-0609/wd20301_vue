@@ -1,17 +1,4 @@
 {
-    "students": [
-        {
-            "id": 1,
-            "name": "thaivm2",
-            "avatar": "",
-            "gender": "Male"
-        },
-        {
-            "id": 2,
-            "name": "thaivm3",
-            "avatar": "",
-            "gender": "Male"
-        }
-    ],
-    "subjects": []
+  "students": [],
+  "subjects": []
 }
