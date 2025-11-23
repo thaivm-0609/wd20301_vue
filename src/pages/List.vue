@@ -46,10 +46,16 @@ onMounted(() => { //khai báo các hàm cần thực thi
           <td>{{ s.gender }}</td>
           <td>
             <router-link
-                :to="`/detail/${s.id}`"
-                class="btn btn-info"
+              :to="`/detail/${s.id}`"
+              class="btn btn-info"
             >
                 Detail
+            </router-link>
+            <router-link
+              :to="`/update/${s.id}`"
+              class="btn btn-warning"
+            >
+              Update
             </router-link>
             <button 
               @click="deleteStudent(s.id)"

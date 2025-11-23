@@ -1,15 +1,27 @@
 {
   "students": [
     {
-      "id": 1,
+      "id": "1",
       "name": "thaivm2",
-      "avatar": "",
+      "avatar": "https://picsum.photos/200",
       "gender": "Male"
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "thaivm3",
-      "avatar": "",
+      "avatar": "https://picsum.photos/200",
+      "gender": "Female"
+    },
+    {
+      "id": "5e06",
+      "name": "thaivm5",
+      "avatar": "https://picsum.photos/100",
+      "gender": "Female"
+    },
+    {
+      "id": "beec",
+      "name": "new student updated",
+      "avatar": "https://picsum.photos/50",
       "gender": "Female"
     }
   ],
