@@ -3,11 +3,20 @@ import Info from './Info.vue';
 
 //khai báo những properties (thuộc tính) được truyền từ component cha sang
 const props = defineProps({
-    //key: kiểu dữ liệu
+    //key: kiểu dữ liệu => props không bắt buộc truyền vào
     // name: String,
     // avatar: String,
     // gender: String,
-    student: Object,
+    
+    //bắt buộc component cha phải truyền props sang
+    //key: {
+    //  type: Kiểu dữ liệu,
+    //  required: true,
+    //}
+    student: {
+        type: Object,
+        required: true,
+    }
 })
 </script>
 
