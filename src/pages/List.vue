@@ -1,6 +1,7 @@
 <script setup>
 import { onMounted, ref } from 'vue';
 import axios from 'axios';
+import StudentItem from '@/components/StudentItem.vue';
 
 //B1: khởi tạo biến để lưu dữ liệu lấy từ json-server
 const students = ref([]);
@@ -20,6 +21,7 @@ const deleteStudent = async (id) => {
     getStudents(); //cập nhật danh sách sinh viên mới
   }
 }
+
 //onMounted: tự động thực thi hàm ngay khi load trang
 onMounted(() => { //khai báo các hàm cần thực thi 
   getStudents();
@@ -39,7 +41,12 @@ onMounted(() => { //khai báo các hàm cần thực thi
         </tr>
       </thead>
       <tbody>
-        <tr v-for="s in students">
+        <StudentItem 
+          v-for="student in students"
+          :s="student"
+          @handleDelete="deleteStudent"
+        />
+        <!-- <tr v-for="s in students">
           <td>{{ s.id }}</td>
           <td>{{ s.name }}</td>
           <td><img :src="s.avatar" alt=""></td>
@@ -64,7 +71,7 @@ onMounted(() => { //khai báo các hàm cần thực thi
               Delete
             </button>
           </td>
-        </tr>
+        </tr> -->
       </tbody>
     </table>
 </template>
